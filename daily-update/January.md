@@ -22,6 +22,7 @@ Finished **DNS** short skill assessment.
 Started reading about **CVE, CVSS, Vulnerability assesment, pentesting, red teaming, grc** and related things in the HTB module. Finished the most theory part in module. 
 Completed daily goal on Duolingo, Got into **top 3** in silver league. 
 Got a **duo partner**.
+7 day Streak on duo
 
 #### 4 January 
 
