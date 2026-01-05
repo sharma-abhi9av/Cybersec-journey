@@ -35,4 +35,6 @@ Tried **reducing AI usage** and replacing it with grind and research.
 
 #### 5 January 
 
+Did german lesson. 
+Got into Gold league with being in top 3
 
