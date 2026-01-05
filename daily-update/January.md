@@ -20,4 +20,18 @@ Designed basic 4 css themes.
 Tried a vulnlab VM. 
 Finished DNS short skill assessment.
 Started reading about CVE, CVSS, Vulnerability assesment, pentesting, red teaming, grc and related things in the HTB module. Finished the most theory part in module. 
+Completed daily goal on Duolingo, Got into top3 in silver league. 
+Got a duo partner.
+
+#### 4 January 
+
+Did the vulnlab VM again and made progress. 
+Started MySQL in HTB footprints module. 
+Solved some physics.
+Did the daily goal of Duolingo.
+Took some rapid language match test and cleared by a good margin till I learned. 
+Tried reducing AI usage and replacing it with grind and research. 
+
+#### 5 January 
+
 
