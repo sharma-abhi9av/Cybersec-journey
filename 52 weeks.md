@@ -5,7 +5,7 @@
 - Did some **hardware/electric circuit** related questions.
 - Designed basic 4 css themes.
 - Finished **DNS** short skill assessment.
-- Started reading about **CVE, CVSS, Vulnerability assesment, pentesting, red teaming, grc** and related things in the HTB module. Finished the most theory part in module.
+- Started reading about **CVE, CVSS, Vulnerability assesment, pentesting, red teaming, grc** and related things in the HTB module.
 - Did a **vulnlab VM** from vulnlab and made progress. 
 - Started **MySQL** in HTB footprints module. . 
 - Tried **reducing AI usage** and replacing it with grind and research.
