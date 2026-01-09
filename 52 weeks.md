@@ -17,3 +17,11 @@
 - Got into Bronze-> Silver -> Gold league with being in top 1
 - 11 day streak
 
+
+# Week 2
+## Cyber
+
+- Read about IMAP,POP3,MSSQL 
+- Finished skill assessment of those.
+
+## German
