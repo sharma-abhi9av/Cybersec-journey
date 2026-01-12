@@ -23,5 +23,6 @@
 
 - Read about IMAP,POP3,MSSQL 
 - Finished skill assessment of those.
+- Tried HTB box Browsed 
 
 ## German
