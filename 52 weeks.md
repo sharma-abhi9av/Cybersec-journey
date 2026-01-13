@@ -26,3 +26,5 @@
 - Tried HTB box Browsed 
 
 ## German
+
+- Reached sapphire league 
