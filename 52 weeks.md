@@ -29,3 +29,5 @@
 ## German
 
 - Reached sapphire league 
+
+# Week 3
