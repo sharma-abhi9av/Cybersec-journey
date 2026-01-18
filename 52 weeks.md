@@ -29,5 +29,15 @@
 ## German
 
 - Reached sapphire league 
+- Finished in top 5 
+- Made a 18 days streak 
 
 # Week 3
+
+## Cyber 
+
+- Participated in a private CTF/ Wargame.
+
+## German 
+
+- Reached Ruby league 
