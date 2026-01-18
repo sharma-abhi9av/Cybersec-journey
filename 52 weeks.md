@@ -24,7 +24,7 @@
 - Read about IMAP,POP3,MSSQL 
 - Finished skill assessment of those.
 - Tried HTB box Browsed.
-- wasn't good week for cyber. Been too busy.
+- Wasn't good week for cyber. been too busy.
 
 ## German
 
