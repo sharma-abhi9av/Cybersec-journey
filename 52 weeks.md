@@ -1,3 +1,30 @@
+
+# Week 3
+
+## Cyber 
+
+- Participated in a private CTF/ Wargame.
+- Revised XSS and watched some videos based on it.
+
+## German 
+
+- Reached Ruby league 
+
+# Week 2
+
+## Cyber
+
+- Read about IMAP,POP3,MSSQL 
+- Finished skill assessment of those.
+- Tried HTB box Browsed.
+- Wasn't good week for cyber. been too busy.
+
+## German
+
+- Reached sapphire league 
+- Finished in top 5 
+- Made a 18 days streak 
+
 # Week 1
 ## Cyber
 - Started new module in htb academy.(**Vulnerability Assessment**)
@@ -18,26 +45,4 @@
 - 11 day streak
 
 
-# Week 2
-## Cyber
 
-- Read about IMAP,POP3,MSSQL 
-- Finished skill assessment of those.
-- Tried HTB box Browsed.
-- Wasn't good week for cyber. been too busy.
-
-## German
-
-- Reached sapphire league 
-- Finished in top 5 
-- Made a 18 days streak 
-
-# Week 3
-
-## Cyber 
-
-- Participated in a private CTF/ Wargame.
-
-## German 
-
-- Reached Ruby league 
