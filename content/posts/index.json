@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "htb-nocturnal",
+    "title": "HTB Nocturnal Writeup",
+    "summary": "Detailed walkthrough and notes for the Nocturnal machine.",
+    "date": "2025-01-12",
+    "tags": ["htb", "linux", "writeup"],
+    "type": "writeup",
+    "path": "./htb/writeups/nocturnal.md"
+  },
+  {
+    "slug": "portswigger-cors",
+    "title": "PortSwigger CORS Notes",
+    "summary": "Collected CORS vulnerabilities and exploitation techniques.",
+    "date": "2024-11-22",
+    "tags": ["portswigger", "cors", "web"],
+    "type": "lab",
+    "path": "./portswigger/CORS/cors.md"
+  },
+  {
+    "slug": "htb-soulmate",
+    "title": "HTB Soulmate Notes",
+    "summary": "Command snippets and observations from the Soulmate box.",
+    "date": "2024-10-05",
+    "tags": ["htb", "writeup"],
+    "type": "writeup",
+    "path": "./htb/solved/soulmate/comment.md"
+  }
+]

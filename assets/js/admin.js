@@ -1,0 +1,147 @@
+const statusEl = document.getElementById('status');
+const form = document.getElementById('publisherForm');
+const tokenInput = document.getElementById('token');
+const saveTokenBtn = document.getElementById('saveToken');
+const clearTokenBtn = document.getElementById('clearToken');
+
+const { OWNER, REPO, BRANCH } = window.blogRepoConfig;
+const INDEX_PATH = 'content/posts/index.json';
+
+function setStatus(message, isError = false) {
+  statusEl.textContent = message;
+  statusEl.style.borderColor = isError ? 'rgba(255,95,95,0.6)' : 'rgba(77,163,255,0.35)';
+  statusEl.style.background = isError ? 'rgba(255,95,95,0.12)' : 'rgba(77,163,255,0.12)';
+}
+
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+function getToken() {
+  return localStorage.getItem('blog_publish_token') || '';
+}
+
+function saveToken() {
+  const token = tokenInput.value.trim();
+  if (!token) return setStatus('Please paste a valid GitHub Personal Access Token first.', true);
+  localStorage.setItem('blog_publish_token', token);
+  setStatus('Token saved in this browser.');
+}
+
+function clearToken() {
+  localStorage.removeItem('blog_publish_token');
+  tokenInput.value = '';
+  setStatus('Token removed from this browser.');
+}
+
+async function githubRequest(path, token, method = 'GET', body) {
+  const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method,
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${token}`,
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload.message || `GitHub API error (${response.status})`);
+  }
+
+  return payload;
+}
+
+function decodeBase64(content) {
+  return decodeURIComponent(
+    atob(content.replace(/\n/g, ''))
+      .split('')
+      .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+      .join('')
+  );
+}
+
+function encodeBase64(content) {
+  return btoa(unescape(encodeURIComponent(content)));
+}
+
+async function publishPost(event) {
+  event.preventDefault();
+  const token = getToken();
+  if (!token) {
+    setStatus('No token found. Save your GitHub token first.', true);
+    return;
+  }
+
+  const formData = new FormData(form);
+  const title = formData.get('title').toString().trim();
+  const summary = formData.get('summary').toString().trim();
+  const date = formData.get('date').toString().trim();
+  const tags = formData
+    .get('tags')
+    .toString()
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+  const markdown = formData.get('markdown').toString().trim();
+  const type = formData.get('type').toString().trim() || 'writeup';
+
+  if (!title || !date || !markdown) {
+    setStatus('Title, date, and markdown body are required.', true);
+    return;
+  }
+
+  const slug = slugify(title);
+  const postPath = `content/posts/${slug}.md`;
+
+  try {
+    setStatus('Publishing post...');
+    const indexFile = await githubRequest(INDEX_PATH, token);
+    const indexJson = JSON.parse(decodeBase64(indexFile.content));
+
+    if (indexJson.some((item) => item.slug === slug)) {
+      throw new Error(`A post with slug "${slug}" already exists. Change the title.`);
+    }
+
+    const record = {
+      slug,
+      title,
+      summary,
+      date,
+      tags,
+      type,
+      path: `./${postPath}`
+    };
+
+    const newIndex = [record, ...indexJson];
+
+    await githubRequest(postPath, token, 'PUT', {
+      message: `feat(blog): publish ${slug}`,
+      content: encodeBase64(markdown),
+      branch: BRANCH
+    });
+
+    await githubRequest(INDEX_PATH, token, 'PUT', {
+      message: `chore(blog): update index for ${slug}`,
+      content: encodeBase64(`${JSON.stringify(newIndex, null, 2)}\n`),
+      sha: indexFile.sha,
+      branch: BRANCH
+    });
+
+    setStatus(`Post "${title}" has been published successfully.`);
+    form.reset();
+  } catch (error) {
+    setStatus(`Publish failed: ${error.message}`, true);
+  }
+}
+
+tokenInput.value = getToken();
+saveTokenBtn.addEventListener('click', saveToken);
+clearTokenBtn.addEventListener('click', clearToken);
+form.addEventListener('submit', publishPost);
