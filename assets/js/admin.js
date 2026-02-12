@@ -3,14 +3,24 @@ const form = document.getElementById('publisherForm');
 const tokenInput = document.getElementById('token');
 const saveTokenBtn = document.getElementById('saveToken');
 const clearTokenBtn = document.getElementById('clearToken');
+const verifyTokenBtn = document.getElementById('verifyToken');
+const accessDeniedEl = document.getElementById('accessDenied');
 
 const { OWNER, REPO, BRANCH } = window.blogRepoConfig;
 const INDEX_PATH = 'content/posts/index.json';
+const TOKEN_KEY = 'blog_publish_token';
+let authenticatedOwner = false;
 
 function setStatus(message, isError = false) {
   statusEl.textContent = message;
   statusEl.style.borderColor = isError ? 'rgba(255,95,95,0.6)' : 'rgba(77,163,255,0.35)';
   statusEl.style.background = isError ? 'rgba(255,95,95,0.12)' : 'rgba(77,163,255,0.12)';
+}
+
+function setAccessState(isAuthorized) {
+  authenticatedOwner = isAuthorized;
+  form.style.display = isAuthorized ? 'grid' : 'none';
+  accessDeniedEl.style.display = isAuthorized ? 'none' : 'block';
 }
 
 function slugify(value) {
@@ -23,20 +33,25 @@ function slugify(value) {
 }
 
 function getToken() {
-  return localStorage.getItem('blog_publish_token') || '';
+  return localStorage.getItem(TOKEN_KEY) || '';
 }
 
 function saveToken() {
   const token = tokenInput.value.trim();
-  if (!token) return setStatus('Please paste a valid GitHub Personal Access Token first.', true);
-  localStorage.setItem('blog_publish_token', token);
-  setStatus('Token saved in this browser.');
+  if (!token) {
+    setStatus('Provide a valid token before saving.', true);
+    return;
+  }
+
+  localStorage.setItem(TOKEN_KEY, token);
+  setStatus('Token saved in browser storage. Use Sign In to verify access.');
 }
 
 function clearToken() {
-  localStorage.removeItem('blog_publish_token');
+  localStorage.removeItem(TOKEN_KEY);
   tokenInput.value = '';
-  setStatus('Token removed from this browser.');
+  setAccessState(false);
+  setStatus('Signed out.', false);
 }
 
 async function githubRequest(path, token, method = 'GET', body) {
@@ -58,6 +73,23 @@ async function githubRequest(path, token, method = 'GET', body) {
   return payload;
 }
 
+async function fetchAuthenticatedUser(token) {
+  const response = await fetch('https://api.github.com/user', {
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${token}`,
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  });
+
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload.message || 'Authentication failed.');
+  }
+
+  return payload;
+}
+
 function decodeBase64(content) {
   return decodeURIComponent(
     atob(content.replace(/\n/g, ''))
@@ -71,11 +103,42 @@ function encodeBase64(content) {
   return btoa(unescape(encodeURIComponent(content)));
 }
 
+async function verifyOwnerAccess() {
+  const token = tokenInput.value.trim() || getToken();
+  if (!token) {
+    setAccessState(false);
+    setStatus('Authentication required.', true);
+    return;
+  }
+
+  try {
+    setStatus('Verifying GitHub account...');
+    const user = await fetchAuthenticatedUser(token);
+
+    if ((user.login || '').toLowerCase() !== OWNER.toLowerCase()) {
+      setAccessState(false);
+      setStatus('Access denied. This account is not authorized for publishing.', true);
+      return;
+    }
+
+    setAccessState(true);
+    setStatus(`Authenticated as ${user.login}. Publishing enabled.`);
+  } catch (error) {
+    setAccessState(false);
+    setStatus(`Authentication failed: ${error.message}`, true);
+  }
+}
+
 async function publishPost(event) {
   event.preventDefault();
-  const token = getToken();
+  const token = getToken() || tokenInput.value.trim();
   if (!token) {
-    setStatus('No token found. Save your GitHub token first.', true);
+    setStatus('Authentication required.', true);
+    return;
+  }
+
+  if (!authenticatedOwner) {
+    setStatus('Access denied. Verify owner account first.', true);
     return;
   }
 
@@ -134,7 +197,7 @@ async function publishPost(event) {
       branch: BRANCH
     });
 
-    setStatus(`Post "${title}" has been published successfully.`);
+    setStatus(`Post "${title}" published successfully.`);
     form.reset();
   } catch (error) {
     setStatus(`Publish failed: ${error.message}`, true);
@@ -142,6 +205,12 @@ async function publishPost(event) {
 }
 
 tokenInput.value = getToken();
+setAccessState(false);
 saveTokenBtn.addEventListener('click', saveToken);
 clearTokenBtn.addEventListener('click', clearToken);
+verifyTokenBtn.addEventListener('click', verifyOwnerAccess);
 form.addEventListener('submit', publishPost);
+
+if (getToken()) {
+  verifyOwnerAccess();
+}

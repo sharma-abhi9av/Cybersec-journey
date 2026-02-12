@@ -1,35 +1,40 @@
 # Cybersec Journey
 
-A GitHub Pages-ready cybersecurity blog for writeups, labs, and security notes.
+Cybersec Journey is a static cybersecurity blog built for GitHub Pages. It consolidates hands-on writeups, lab notes, and security learning material in a clean, searchable format.
 
-## What's included
+## Features
 
-- `index.html` + `post.html`: clean blog frontend.
-- `content/posts/index.json`: post manifest used by homepage and post page.
-- `admin/index.html`: publisher screen for adding markdown posts.
+- **Public blog frontend** with homepage listing and single-post view.
+- **Markdown-driven content** loaded from a post manifest (`content/posts/index.json`).
+- **Tag and keyword filtering** on the homepage.
+- **Owner-restricted publisher route** with GitHub account verification before publishing is enabled.
+- **Legacy content preserved** under existing directories (`htb/`, `portswigger/`, etc.).
 
-Your previous writeups and notes remain untouched under `htb/`, `portswigger/`, and other folders.
+## Structure
 
-## Deploy to GitHub Pages
+- `index.html` — homepage and post listing
+- `post.html` — individual post renderer
+- `content/posts/index.json` — post registry
+- `content/posts/*.md` — newly published markdown posts
+- `admin/index.html` — restricted publisher interface
+- `assets/js/app.js` — blog rendering logic
+- `assets/js/admin.js` — publisher authentication and publish workflow
+- `assets/css/style.css` — shared styles
 
-1. Open repo settings → **Pages**.
+## Deployment (GitHub Pages)
+
+1. Open repository settings → **Pages**.
 2. Set source to **Deploy from a branch**.
 3. Select branch `main` and folder `/ (root)`.
-4. Save.
+4. Save and wait for deployment.
 
-GitHub Pages will serve:
-- Home: `https://<username>.github.io/Cybersec-journey/`
+## Publishing workflow
 
-## Publish posts from browser UI
+1. Open the publisher route (`/admin/`).
+2. Authenticate with a GitHub token.
+3. Access is granted only when the authenticated GitHub login matches the configured repository owner.
+4. Publish creates a new markdown file in `content/posts/` and updates `content/posts/index.json`.
 
-1. Open the publisher route.
-2. Paste a GitHub token with repository `Contents: Read and write` permission.
-3. Fill title/date/tags/summary/markdown and publish.
+## Existing writeups
 
-The publisher will:
-- create `content/posts/<slug>.md`
-- update `content/posts/index.json`
-
-## Legacy content
-
-`/htb` still tracks Hack The Box progress and writeups exactly as before.
+Historical HTB and PortSwigger material remains in place and can continue to be referenced directly.

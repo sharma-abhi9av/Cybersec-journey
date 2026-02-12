@@ -17,18 +17,26 @@
     <main class="container" style="padding: 2rem 0 3rem;">
       <h1>Publisher</h1>
 
+      <div id="accessDenied" class="card" style="margin-bottom: 1rem;">
+        <h2 style="margin: 0;">Restricted Access</h2>
+        <p style="margin: 0; color: var(--muted);">
+          Sign in with a GitHub token. Access is granted only to the repository owner account.
+        </p>
+      </div>
+
       <div class="card" style="margin-bottom: 1rem;">
-        <label for="token">Access Token</label>
+        <label for="token">GitHub Token</label>
         <input id="token" type="password" placeholder="github_pat_..." />
-        <div style="display: flex; gap: 0.6rem; margin-top: 0.6rem;">
-          <button id="saveToken" type="button">Save</button>
-          <button id="clearToken" class="secondary" type="button">Clear</button>
+        <div style="display: flex; gap: 0.6rem; margin-top: 0.6rem; flex-wrap: wrap;">
+          <button id="verifyToken" type="button">Sign In</button>
+          <button id="saveToken" type="button" class="secondary">Save Session</button>
+          <button id="clearToken" class="secondary" type="button">Sign Out</button>
         </div>
       </div>
 
-      <div id="status" class="notice">Ready.</div>
+      <div id="status" class="notice">Authentication required.</div>
 
-      <form id="publisherForm" class="card form-grid">
+      <form id="publisherForm" class="card form-grid" style="display: none;">
         <label>
           Title
           <input type="text" name="title" required />
@@ -59,7 +67,7 @@
           <textarea name="markdown" required placeholder="# Title\n\nWrite your post in markdown..."></textarea>
         </label>
 
-        <div class="full">
+        <div class="full" style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
           <button type="submit">Publish</button>
         </div>
       </form>
