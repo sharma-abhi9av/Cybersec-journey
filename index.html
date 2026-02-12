@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cybersec Journey | Security Blog & Writeups</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="./">Cybersec Journey</a>
+        <nav class="nav">
+          <a href="./">Home</a>
+          <a href="./admin/">Admin</a>
+          <a href="https://github.com/sharma-abhi9av/Cybersec-journey" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Clean, fast and owner-controlled cybersecurity blog.</h1>
+        <p>
+          Personal lab notes, HackTheBox writeups, PortSwigger practice, and practical security learning in one place.
+          Everything is markdown-powered and can be published directly from the built-in admin screen.
+        </p>
+        <div class="badges">
+          <span class="badge">GitHub Pages Ready</span>
+          <span class="badge">Markdown Posts</span>
+          <span class="badge">Owner Publishing UI</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>Latest posts</h2>
+          <small>Search by title / tags</small>
+        </div>
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="Try: HTB, CORS, Nocturnal..." />
+        </div>
+        <div id="postGrid" class="grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© <span id="year"></span> Cybersec Journey.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
