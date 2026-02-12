@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Publisher | Cybersec Journey</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="../">Cybersec Journey</a>
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="./">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container" style="padding: 2rem 0 3rem;">
+      <h1>Owner Publish Panel</h1>
+      <p class="notice">
+        This page publishes markdown to your GitHub repo using your Personal Access Token.
+        Keep this token private and create a fine-grained token with <strong>contents: read + write</strong>.
+      </p>
+
+      <div class="card" style="margin-bottom: 1rem;">
+        <label for="token">GitHub Token (stored only in this browser)</label>
+        <input id="token" type="password" placeholder="github_pat_..." />
+        <div style="display: flex; gap: 0.6rem; margin-top: 0.6rem;">
+          <button id="saveToken" type="button">Save token</button>
+          <button id="clearToken" class="secondary" type="button">Clear token</button>
+        </div>
+      </div>
+
+      <div id="status" class="notice">Ready.</div>
+
+      <form id="publisherForm" class="card form-grid">
+        <label>
+          Title
+          <input type="text" name="title" required />
+        </label>
+
+        <label>
+          Date
+          <input type="date" name="date" required />
+        </label>
+
+        <label>
+          Type (writeup/blog/lab)
+          <input type="text" name="type" value="writeup" />
+        </label>
+
+        <label>
+          Tags (comma separated)
+          <input type="text" name="tags" placeholder="htb, linux, privilege-escalation" />
+        </label>
+
+        <label class="full">
+          Summary
+          <input type="text" name="summary" placeholder="One-line overview for the cards" />
+        </label>
+
+        <label class="full">
+          Markdown Content
+          <textarea name="markdown" required placeholder="# Title\n\nWrite your post in markdown..."></textarea>
+        </label>
+
+        <div class="full">
+          <button type="submit">Publish Post</button>
+        </div>
+      </form>
+    </main>
+
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/admin.js"></script>
+  </body>
+</html>
