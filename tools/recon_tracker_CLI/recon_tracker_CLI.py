@@ -36,11 +36,11 @@ def list_targets(targets):
          print(f"host : {target['host']} | status : {target['status']}")
 
 def add_finding(targets):
-    hosttofind = input("Enter the host IP to find:")
+    hosttofind = input("Enter the hostname or IP to find:")
     found = False
     for target in targets: 
         if target["host"] == hosttofind:
-            findingtoadd =input("Enter the finding you found about host:")
+            findingtoadd =input("Enter the finding you want to add about host:")
             target["findings"].append(findingtoadd)
             found = True
             print("Finding added.")
@@ -50,7 +50,7 @@ def add_finding(targets):
         save_targets(targets)
 
 def view_target(targets):
-    hosttofind = input("Enter host:")
+    hosttofind = input("Enter hostname or IP:")
     found = False
     for target in targets:
         if target['host'] == hosttofind:
