@@ -20,4 +20,6 @@ I'm early in this journey and I know it. The goal is depth over breadth.
 
 [GitHub](https://github.com/sharma-abhi9av) · 
 [LinkedIn](https://www.linkedin.com/in/abhinav-sharma-36ba98270/) · 
-[Email](mailto:in.abhi.linked@gmail.com)
+[Email](mailto:in.abhi.linked@gmail.com)  · 
+[Hack the box](https://app.hackthebox.com/users/2142022) · 
+[Leetcode](https://leetcode.com/u/sharma_abhi9av/)  
