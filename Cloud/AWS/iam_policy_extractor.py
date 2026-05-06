@@ -1,3 +1,11 @@
+"""
+Connects to AWS using Boto3 and extracts all IAM policies attached 
+to users, groups, and roles. Outputs a clean summary showing 
+who has access to what. Useful for auditing over-permissioned accounts.
+
+Requirements: AWS credentials configured via `aws configure`
+Usage: python3 iam_policy_extractor.py
+"""
 import boto3 
 import json
 scan_data = []
