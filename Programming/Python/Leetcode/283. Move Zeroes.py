@@ -4,7 +4,7 @@ Note that you must do this in-place without making a copy of the array.
 
 ### Thinking Process & Whiteboard
 Here is how I visualized the two-pointer approach:
-![283. Move Zeroes](283_move_zeroes.png)
+![283. Move Zeroes](pictures/283_move_zeroes.png)
 """
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
