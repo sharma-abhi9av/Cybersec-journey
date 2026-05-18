@@ -3,9 +3,8 @@ Given an integer array nums, move all 0's to the end of it while maintaining the
 Note that you must do this in-place without making a copy of the array.
 
 ### Thinking Process & Whiteboard
-Here is how I visualized the two-pointer approach:
-So, i knew i have to use two pointers as i was practising questions with tag as two pointers
-My initial thought was what if i replace every 0 with a number and exchange there position,
+I was practicing questions related to the use of two pointers,
+My initial thought was what if I replace every 0 with a non-zero number and exchange there position,
 then I started visualing, and finally made a thought. 
 ```
 left = 0
@@ -23,11 +22,11 @@ while right < len(nums):
         right += 1 
     return nums
 ``` 
-As expected i got index error, the reason behind the error is if there is no 0 in the input,
-the left pointer goes forward, but right pointer stays the same, finally breaking the code when left pointer goes out of index.
-Now i knew, the logic is correct, i just have to move right pointer everytime, so I switched to 'for' loop.
-The for loop moves right pointer everytime as I used right as index, the left pointer only moves when the loop finds a non-zero number,
-the pointers move together until they hit any '0', as soon as zero comes in the way the left pointer stops,and right move ahead, when the loop runs again and find the nums[right] != 0, it swaps the position of left and right number respectively.
+I got Index error,the reason behind the error is if there is no 0 in the input,the left pointer goes forward, but right pointer stays the same. 
+Finally breaking the code when left pointer goes out of index. Now I knew, the base logic is correct, I just have to move right pointer everytime.
+I switched to 'for' loop, using 'right' as the index of my for loop, made sure it moves everytime,the left pointer only moves when the loop finds a non-zero number,
+As the loop goes forward both pointers move together until the loop hit any '0', as soon as zero comes in the way the left pointer stops,and right move ahead. 
+When the loop runs again and find the nums[right] != 0, it swaps the position of left and right number respectively. Explained by a diagram below.
 ![283. Move Zeroes](pictures/283_move_zeroes.png)
 """
 class Solution:
