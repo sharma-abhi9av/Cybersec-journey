@@ -1,0 +1,565 @@
+{
+  "generated_at": "2026-06-05T05:08:41Z",
+  "experience": {
+    "rank": "Professional",
+    "level": 51,
+    "xp": 33230,
+    "xp_next_level": 0,
+    "streak": 3
+  },
+  "profile": {
+    "user_id": 2142022,
+    "username": "0xMikey",
+    "user_owns": 32,
+    "system_owns": 31,
+    "points": 357,
+    "user_bloods": 0,
+    "system_bloods": 0
+  },
+  "challenges": {
+    "total_solved": 20,
+    "categories": [
+      {
+        "name": "Reversing",
+        "solved": 3,
+        "total": 100,
+        "completion": 3
+      },
+      {
+        "name": "Web",
+        "solved": 6,
+        "total": 168,
+        "completion": 4
+      },
+      {
+        "name": "OSINT",
+        "solved": 6,
+        "total": 11,
+        "completion": 55
+      },
+      {
+        "name": "Hardware",
+        "solved": 1,
+        "total": 41,
+        "completion": 2
+      },
+      {
+        "name": "Coding",
+        "solved": 2,
+        "total": 16,
+        "completion": 13
+      },
+      {
+        "name": "Quantum",
+        "solved": 2,
+        "total": 6,
+        "completion": 33
+      }
+    ]
+  },
+  "attack_paths": {
+    "total_solved": 31,
+    "paths": [
+      {
+        "name": "Reconnaissance",
+        "solved": 9,
+        "total": 251
+      },
+      {
+        "name": "Web Application",
+        "solved": 8,
+        "total": 321
+      },
+      {
+        "name": "Vulnerability Assessment",
+        "solved": 8,
+        "total": 385
+      },
+      {
+        "name": "Password Cracking",
+        "solved": 7,
+        "total": 162
+      },
+      {
+        "name": "Enterprise Network",
+        "solved": 5,
+        "total": 172
+      },
+      {
+        "name": "Password Reuse",
+        "solved": 5,
+        "total": 137
+      },
+      {
+        "name": "SUDO Exploitation",
+        "solved": 5,
+        "total": 82
+      },
+      {
+        "name": "Custom Applications",
+        "solved": 5,
+        "total": 89
+      }
+    ]
+  },
+  "activity": [
+    {
+      "date": "2026-06-04T19:41:55.000000Z",
+      "date_diff": "9 hours ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 897,
+      "name": "SmartHire",
+      "points": 30,
+      "machine_avatar": "/avatars/26260a4f7f1e95d188a99210fb2ae693_thumb.png"
+    },
+    {
+      "date": "2026-06-04T19:40:03.000000Z",
+      "date_diff": "9 hours ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 897,
+      "name": "SmartHire",
+      "points": 15,
+      "machine_avatar": "/avatars/26260a4f7f1e95d188a99210fb2ae693_thumb.png"
+    },
+    {
+      "date": "2026-06-03T11:31:59.000000Z",
+      "date_diff": "1 day ago",
+      "object_type": "challenge",
+      "type": "challenge",
+      "first_blood": false,
+      "id": 938,
+      "name": "Cred Hunter",
+      "points": 2,
+      "challenge_category": "Coding"
+    },
+    {
+      "date": "2026-06-03T10:54:34.000000Z",
+      "date_diff": "1 day ago",
+      "object_type": "challenge",
+      "type": "challenge",
+      "first_blood": false,
+      "id": 1081,
+      "name": "ReactOOPS",
+      "points": 0,
+      "challenge_category": "Web"
+    },
+    {
+      "date": "2026-06-03T05:59:54.000000Z",
+      "date_diff": "1 day ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 894,
+      "name": "Helix",
+      "points": 30,
+      "machine_avatar": "/avatars/9ef7dfc0282a2ed0dfd37bc16fd15bb5_thumb.png"
+    },
+    {
+      "date": "2026-06-03T05:29:46.000000Z",
+      "date_diff": "1 day ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 894,
+      "name": "Helix",
+      "points": 15,
+      "machine_avatar": "/avatars/9ef7dfc0282a2ed0dfd37bc16fd15bb5_thumb.png"
+    },
+    {
+      "date": "2026-05-31T05:08:12.000000Z",
+      "date_diff": "5 days ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 903,
+      "name": "DevHub",
+      "points": 30,
+      "machine_avatar": "/avatars/8e821c7bbdb90d8520bb597edae70080_thumb.png"
+    },
+    {
+      "date": "2026-05-31T03:49:16.000000Z",
+      "date_diff": "5 days ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 903,
+      "name": "DevHub",
+      "points": 15,
+      "machine_avatar": "/avatars/8e821c7bbdb90d8520bb597edae70080_thumb.png"
+    },
+    {
+      "date": "2026-05-24T05:56:09.000000Z",
+      "date_diff": "1 week ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 900,
+      "name": "Reactor",
+      "points": 20,
+      "machine_avatar": "/avatars/56868ca419111fc0721393a2ffa0cefe_thumb.png"
+    },
+    {
+      "date": "2026-05-24T05:15:39.000000Z",
+      "date_diff": "1 week ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 900,
+      "name": "Reactor",
+      "points": 10,
+      "machine_avatar": "/avatars/56868ca419111fc0721393a2ffa0cefe_thumb.png"
+    },
+    {
+      "date": "2026-04-18T16:45:22.000000Z",
+      "date_diff": "1 month ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 867,
+      "name": "Silentium",
+      "points": 20,
+      "machine_avatar": "/avatars/601d72b592e6b78aee56dbc086ec7089_thumb.png"
+    },
+    {
+      "date": "2026-04-12T10:03:49.000000Z",
+      "date_diff": "1 month ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 867,
+      "name": "Silentium",
+      "points": 10,
+      "machine_avatar": "/avatars/601d72b592e6b78aee56dbc086ec7089_thumb.png"
+    },
+    {
+      "date": "2026-04-06T07:01:55.000000Z",
+      "date_diff": "1 month ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 862,
+      "name": "Garfield",
+      "points": 20,
+      "machine_avatar": "/avatars/a7ee5b5ec5cb4c2bf96545fda71ea8e6_thumb.png"
+    },
+    {
+      "date": "2026-04-06T05:02:47.000000Z",
+      "date_diff": "1 month ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 862,
+      "name": "Garfield",
+      "points": 40,
+      "machine_avatar": "/avatars/a7ee5b5ec5cb4c2bf96545fda71ea8e6_thumb.png"
+    },
+    {
+      "date": "2026-04-04T14:53:04.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 859,
+      "name": "DevArea",
+      "points": 30,
+      "machine_avatar": "/avatars/88d6d295a9624c91cbdae1e0215cb354_thumb.png"
+    },
+    {
+      "date": "2026-04-04T13:47:27.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 859,
+      "name": "DevArea",
+      "points": 15,
+      "machine_avatar": "/avatars/88d6d295a9624c91cbdae1e0215cb354_thumb.png"
+    },
+    {
+      "date": "2026-03-28T17:49:21.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 856,
+      "name": "Kobold",
+      "points": 20,
+      "machine_avatar": "/avatars/2ff7f3683782c3525c5ac9ed275cc989_thumb.png"
+    },
+    {
+      "date": "2026-03-28T17:08:25.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 856,
+      "name": "Kobold",
+      "points": 10,
+      "machine_avatar": "/avatars/2ff7f3683782c3525c5ac9ed275cc989_thumb.png"
+    },
+    {
+      "date": "2026-03-14T22:10:05.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "root",
+      "first_blood": false,
+      "id": 850,
+      "name": "VariaType",
+      "points": 30,
+      "machine_avatar": "/avatars/1c63aff74baeaf6afdb5f35519756ab1_thumb.png"
+    },
+    {
+      "date": "2026-03-14T21:46:51.000000Z",
+      "date_diff": "2 months ago",
+      "object_type": "machine",
+      "type": "user",
+      "first_blood": false,
+      "id": 850,
+      "name": "VariaType",
+      "points": 15,
+      "machine_avatar": "/avatars/1c63aff74baeaf6afdb5f35519756ab1_thumb.png"
+    }
+  ],
+  "derived": {
+    "user_owns": 32,
+    "system_owns": 33,
+    "challenge_solves": 20,
+    "unique_machines": [
+      "CCTV",
+      "Cap",
+      "CodePartTwo",
+      "Conversor",
+      "DarkZero",
+      "DevArea",
+      "DevHub",
+      "Eighteen",
+      "Expressway",
+      "Facts",
+      "Fawn",
+      "Fries",
+      "Garfield",
+      "Gavel",
+      "Giveback",
+      "Guardian",
+      "Helix",
+      "Imagery",
+      "Interpreter",
+      "Kobold",
+      "Meow",
+      "MonitorsFour",
+      "NanoCorp",
+      "Nocturnal",
+      "Outbound",
+      "Previous",
+      "Pterodactyl",
+      "Reactor",
+      "Signed",
+      "Silentium",
+      "SmartHire",
+      "Soulmate",
+      "VariaType",
+      "WingData"
+    ],
+    "points_by_month": {
+      "2025-07": 2,
+      "2025-08": 4,
+      "2025-09": 4,
+      "2025-10": 25,
+      "2025-11": 61,
+      "2025-12": 219,
+      "2026-02": 60,
+      "2026-03": 105,
+      "2026-04": 135,
+      "2026-05": 75,
+      "2026-06": 92
+    }
+  },
+  "team": {
+    "id": 7247,
+    "name": "VXON",
+    "points": 1846,
+    "root_owns": 181,
+    "user_owns": 191,
+    "challenge_owns": 243,
+    "ranking": 49,
+    "member_count": 19,
+    "members": [
+      {
+        "name": "SOOBIKv2",
+        "rank": "Elite Hacker",
+        "points": 1020,
+        "root_owns": 35,
+        "user_owns": 35,
+        "country": "FR",
+        "is_captain": false
+      },
+      {
+        "name": "knockingd00r",
+        "rank": "Pro Hacker",
+        "points": 863,
+        "root_owns": 57,
+        "user_owns": 64,
+        "country": "MA",
+        "is_captain": false
+      },
+      {
+        "name": "atoontoto",
+        "rank": "Pro Hacker",
+        "points": 514,
+        "root_owns": 74,
+        "user_owns": 74,
+        "country": "IQ",
+        "is_captain": false
+      },
+      {
+        "name": "ANameNotMine",
+        "rank": "Pro Hacker",
+        "points": 410,
+        "root_owns": 113,
+        "user_owns": 124,
+        "country": "HR",
+        "is_captain": false
+      },
+      {
+        "name": "0xMikey",
+        "rank": "Pro Hacker",
+        "points": 357,
+        "root_owns": 31,
+        "user_owns": 32,
+        "country": "IN",
+        "is_captain": true
+      },
+      {
+        "name": "w3nch",
+        "rank": "Pro Hacker",
+        "points": 289,
+        "root_owns": 43,
+        "user_owns": 46,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "Papalo007",
+        "rank": "Pro Hacker",
+        "points": 212,
+        "root_owns": 67,
+        "user_owns": 67,
+        "country": "GR",
+        "is_captain": false
+      },
+      {
+        "name": "jbrgn",
+        "rank": "Pro Hacker",
+        "points": 174,
+        "root_owns": 85,
+        "user_owns": 86,
+        "country": "GB",
+        "is_captain": false
+      },
+      {
+        "name": "6cloudguy",
+        "rank": "Hacker",
+        "points": 49,
+        "root_owns": 24,
+        "user_owns": 24,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "Marclos15",
+        "rank": "Hacker",
+        "points": 44,
+        "root_owns": 33,
+        "user_owns": 37,
+        "country": "ES",
+        "is_captain": false
+      },
+      {
+        "name": "c3n7",
+        "rank": "Script Kiddie",
+        "points": 36,
+        "root_owns": 12,
+        "user_owns": 13,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "kincurio",
+        "rank": "Script Kiddie",
+        "points": 22,
+        "root_owns": 5,
+        "user_owns": 6,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "rootrose",
+        "rank": "Pro Hacker",
+        "points": 20,
+        "root_owns": 55,
+        "user_owns": 67,
+        "country": "GR",
+        "is_captain": false
+      },
+      {
+        "name": "Thennavan",
+        "rank": "Hacker",
+        "points": 4,
+        "root_owns": 36,
+        "user_owns": 41,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "XoXoRiTi",
+        "rank": "Hacker",
+        "points": 3,
+        "root_owns": 15,
+        "user_owns": 17,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "Valkyri3x",
+        "rank": "Script Kiddie",
+        "points": 0,
+        "root_owns": 2,
+        "user_owns": 2,
+        "country": "IN",
+        "is_captain": false
+      },
+      {
+        "name": "cheerybliss",
+        "rank": "Hacker",
+        "points": 0,
+        "root_owns": 7,
+        "user_owns": 8,
+        "country": "JP",
+        "is_captain": false
+      },
+      {
+        "name": "Ivarhackme",
+        "rank": "Noob",
+        "points": 0,
+        "root_owns": 0,
+        "user_owns": 0,
+        "country": null,
+        "is_captain": false
+      },
+      {
+        "name": "owatron",
+        "rank": "Noob",
+        "points": 0,
+        "root_owns": 0,
+        "user_owns": 0,
+        "country": "IN",
+        "is_captain": false
+      }
+    ],
+    "logo": "https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/teams/cf5ff72ca35f112b361de3e312c088f4_thumb.jpg"
+  }
+}
