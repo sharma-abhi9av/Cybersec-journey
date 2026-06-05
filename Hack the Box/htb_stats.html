@@ -8,25 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  /* ── Material dark palette — matches sharma-abhi9av.github.io ── */
+  /* ── Matches MkDocs Material slate theme exactly ── */
   :root {
-    --bg:        #1e1e2e;
-    --surface:   #181825;
-    --card:      #24273a;
-    --border:    #313244;
-    --border-hi: #45475a;
-    --text:      #cdd6f4;
-    --muted:     #6c7086;
-    --subtext:   #a6adc8;
-    --green:     #a6e3a1;
-    --blue:      #89b4fa;
-    --yellow:    #f9e2af;
-    --red:       #f38ba8;
-    --orange:    #fab387;
-    --teal:      #94e2d5;
+    --bg:        #1e2127;
+    --surface:   #181c22;
+    --card:      #252a33;
+    --border:    #2e3440;
+    --border-hi: #3b4252;
+    --text:      #d8dee9;
+    --muted:     #616e88;
+    --subtext:   #8896b0;
+    --green:     #a3be8c;
+    --blue:      #81a1c1;
+    --yellow:    #ebcb8b;
+    --red:       #bf616a;
+    --orange:    #d08770;
+    --teal:      #88c0d0;
     --mono:      'JetBrains Mono', monospace;
     --sans:      'Inter', sans-serif;
-    --radius:    6px;
+    --radius:    4px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,6 +40,20 @@
     min-height: 100vh;
     padding-bottom: 64px;
   }
+
+  /* ── BACK BUTTON ── */
+  .back-btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--blue);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.15s;
+    white-space: nowrap;
+  }
+  .back-btn:hover { border-color: var(--blue); }
 
   /* ── HEADER ── */
   .header {
@@ -356,6 +370,7 @@
 <!-- HEADER -->
 <header class="header">
   <div class="header-left">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
     <span class="header-badge">HTB</span>
     <div>
       <div class="header-title">HackTheBox Stats</div>
