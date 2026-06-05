@@ -1,6 +1,6 @@
 nav:
   - About.md
-  - htb
+  - htb/htb_stats.html
   - Hack the Box
   - Cloud
   - Programming
