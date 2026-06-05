@@ -4,6 +4,6 @@ title: HTB Stats
 
 # HTB Stats Dashboard
 
-<div style="width:100%;height:90vh">
-<iframe src="../htb_stats.html" style="width:100%;height:100%;border:none;"></iframe>
-</div>
+Live stats synced every 6 hours from HackTheBox API.
+
+[Open Dashboard →](htb_stats.html){ .md-button .md-button--primary }
