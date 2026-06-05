@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTB Stats — Abhinav Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  /* ── Material dark palette — matches sharma-abhi9av.github.io ── */
+  :root {
+    --bg:        #1e1e2e;
+    --surface:   #181825;
+    --card:      #24273a;
+    --border:    #313244;
+    --border-hi: #45475a;
+    --text:      #cdd6f4;
+    --muted:     #6c7086;
+    --subtext:   #a6adc8;
+    --green:     #a6e3a1;
+    --blue:      #89b4fa;
+    --yellow:    #f9e2af;
+    --red:       #f38ba8;
+    --orange:    #fab387;
+    --teal:      #94e2d5;
+    --mono:      'JetBrains Mono', monospace;
+    --sans:      'Inter', sans-serif;
+    --radius:    6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 64px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--green);
+    background: rgba(166,227,161,0.1);
+    border: 1px solid rgba(166,227,161,0.25);
+    border-radius: var(--radius);
+    padding: 4px 10px;
+    letter-spacing: 1px;
+  }
+  .header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.3px;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .header-sync {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .header-sync span {
+    color: var(--subtext);
+    display: block;
+    font-size: 12px;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+  }
+
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .container { padding: 20px 16px 0; }
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .grid-2 { grid-template-columns: 1fr !important; }
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    position: relative;
+  }
+  .stat-card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .stat-card-value {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat-card-value.green  { color: var(--green); }
+  .stat-card-value.blue   { color: var(--blue); }
+  .stat-card-value.yellow { color: var(--yellow); }
+  .stat-card-value.orange { color: var(--orange); }
+  .stat-card-value.teal   { color: var(--teal); }
+  .stat-card-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+    font-family: var(--mono);
+  }
+  .xp-bar-bg {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .xp-bar-fill {
+    height: 100%;
+    background: var(--blue);
+    border-radius: 2px;
+    transition: width 1s ease;
+    width: 0%;
+  }
+
+  /* ── PANELS ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .grid-full {
+    margin-bottom: 16px;
+  }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--subtext);
+  }
+  .panel-title-aside {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .panel-body {
+    padding: 18px;
+  }
+
+  /* ── CHART ── */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  /* ── ACTIVITY ── */
+  .activity-list {
+    list-style: none;
+  }
+  .activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+  .type-user  { background: rgba(137,180,250,0.12); color: var(--blue);   border: 1px solid rgba(137,180,250,0.2); }
+  .type-root  { background: rgba(166,227,161,0.12); color: var(--green);  border: 1px solid rgba(166,227,161,0.2); }
+  .type-chall { background: rgba(250,179,135,0.12); color: var(--orange); border: 1px solid rgba(250,179,135,0.2); }
+  .type-blood { background: rgba(243,139,168,0.12); color: var(--red);    border: 1px solid rgba(243,139,168,0.2); }
+  .activity-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .activity-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── TEAM STATS INTERNALS ── */
+  .team-stat-grid {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .team-stat-grid.cols-4 { grid-template-columns: repeat(4,1fr); }
+  .team-stat-grid.cols-3 { grid-template-columns: repeat(3,1fr); }
+  .mini-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .mini-stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+  /* ── MEMBER ROW ── */
+  .member-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .member-row:last-child { border-bottom: none; }
+  .member-name { flex: 1; font-weight: 500; color: var(--text); }
+  .member-rank { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .member-owns { font-family: var(--mono); font-size: 10px; color: var(--subtext); }
+  .member-pts  { font-family: var(--mono); font-size: 11px; color: var(--yellow); width: 56px; text-align: right; }
+
+  /* ── ATTACK PATH BARS ── */
+  .path-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+  }
+  .path-name { font-size: 11px; color: var(--subtext); width: 170px; flex-shrink: 0; }
+  .path-bar-bg { flex: 1; height: 4px; background: var(--border); border-radius: 2px; }
+  .path-bar-fill { height: 100%; background: var(--green); border-radius: 2px; }
+  .path-count { font-family: var(--mono); font-size: 10px; color: var(--green); width: 22px; text-align: right; }
+
+  /* ── LOADING / ERROR ── */
+  .loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .error-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    padding: 10px 12px;
+    border: 1px solid rgba(243,139,168,0.2);
+    border-radius: var(--radius);
+    background: rgba(243,139,168,0.04);
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 0 40px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+  .footer a { color: var(--blue); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .footer-dot { color: var(--border-hi); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <span class="header-badge">HTB</span>
+    <div>
+      <div class="header-title">HackTheBox Stats</div>
+      <div class="header-sub">Live dashboard — synced every 6h via GitHub Actions</div>
+    </div>
+  </div>
+  <div class="header-sync">
+    LAST SYNC
+    <span id="sync-time">loading...</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-card-label">Rank</div>
+      <div class="stat-card-value green" id="s-rank">—</div>
+      <div class="stat-card-sub" id="s-level">Level —</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Total XP</div>
+      <div class="stat-card-value blue" id="s-xp">—</div>
+      <div class="xp-bar-bg"><div class="xp-bar-fill" id="xp-bar"></div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Machines</div>
+      <div class="stat-card-value green" id="s-machines">—</div>
+      <div class="stat-card-sub" id="s-root">0 root + 0 user</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Challenges</div>
+      <div class="stat-card-value orange" id="s-challenges">—</div>
+      <div class="stat-card-sub">solved</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">Streak</div>
+      <div class="stat-card-value teal" id="s-streak">—</div>
+      <div class="stat-card-sub">days</div>
+    </div>
+  </div>
+
+  <!-- XP TIMELINE -->
+  <div class="grid-full">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-indicator" style="background:var(--blue)"></div>
+        <div class="panel-title">XP Progress Over Time</div>
+        <span class="panel-title-aside">cumulative · from activity feed</span>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap" style="height:200px">
+          <canvas id="chart-xp-timeline"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM + ACTIVITY -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-indicator" style="background:var(--yellow)"></div>
+        <div class="panel-title">Team Stats</div>
+        <span class="panel-title-aside" id="team-name-header">loading...</span>
+      </div>
+      <div class="panel-body">
+        <div id="team-content"><div class="loading-state">loading</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-indicator" style="background:var(--teal)"></div>
+        <div class="panel-title">Recent Activity</div>
+      </div>
+      <div class="panel-body" style="padding:10px 18px">
+        <ul class="activity-list" id="activity-list">
+          <li><div class="loading-state">loading</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>HackTheBox API v4</span>
+  <span class="footer-dot">·</span>
+  <a href="https://github.com/sharma-abhi9av/Cybersec-journey/" target="_blank">GitHub</a>
+  <span class="footer-dot">·</span>
+  <span>Auto-syncs every 6h</span>
+</div>
+
+<script>
+const DATA_URL = 'https://raw.githubusercontent.com/sharma-abhi9av/Cybersec-journey/main/data.json';
+
+// Chart defaults — match Material dark
+Chart.defaults.color = '#6c7086';
+Chart.defaults.borderColor = '#313244';
+Chart.defaults.font.family = "'JetBrains Mono', monospace";
+Chart.defaults.font.size = 10;
+
+const GREEN  = '#a6e3a1';
+const BLUE   = '#89b4fa';
+const YELLOW = '#f9e2af';
+const ORANGE = '#fab387';
+const TEAL   = '#94e2d5';
+const RED    = '#f38ba8';
+
+function fmt(n) {
+  if (n === undefined || n === null) return '—';
+  return Number(n).toLocaleString();
+}
+
+function renderStats(data) {
+  const exp     = data.experience || {};
+  const profile = data.profile    || {};
+  const derived = data.derived    || {};
+
+  document.getElementById('s-rank').textContent  = exp.rank  || '—';
+  document.getElementById('s-level').textContent = `Level ${exp.level || '—'}`;
+
+  const xp     = exp.xp || 0;
+  const xpNext = exp.xp_next_level || 0;
+  document.getElementById('s-xp').textContent = fmt(xp);
+  if (xpNext > 0) {
+    const pct = Math.min(100, Math.round((xp / xpNext) * 100));
+    document.getElementById('xp-bar').style.width = pct + '%';
+  }
+
+  const root = profile.system_owns || derived.system_owns || 0;
+  const user = profile.user_owns   || derived.user_owns   || 0;
+  document.getElementById('s-machines').textContent = fmt(root + user);
+  document.getElementById('s-root').textContent     = `${root} root · ${user} user`;
+
+  const challTotal = data.challenges?.total_solved || derived.challenge_solves || 0;
+  document.getElementById('s-challenges').textContent = fmt(challTotal);
+
+  document.getElementById('s-streak').textContent = fmt(exp.streak);
+
+  document.getElementById('sync-time').textContent =
+    data.generated_at
+      ? new Date(data.generated_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST'
+      : 'unknown';
+}
+
+function renderXPTimeline(data) {
+  const canvas  = document.getElementById('chart-xp-timeline');
+  if (!canvas) return;
+
+  const byMonth = data.derived?.points_by_month || {};
+  const months  = Object.keys(byMonth).sort();
+
+  if (months.length < 2) {
+    canvas.closest('.chart-wrap').innerHTML = '<div class="loading-state">not enough data yet</div>';
+    return;
+  }
+
+  let cum = 0;
+  const cumData = months.map(m => { cum += byMonth[m]; return cum; });
+  const labels  = months.map(m => {
+    const [y, mo] = m.split('-');
+    return new Date(+y, +mo-1).toLocaleString('en', { month: 'short', year: '2-digit' });
+  });
+
+  new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: cumData,
+        borderColor: BLUE,
+        backgroundColor: 'rgba(137,180,250,0.06)',
+        borderWidth: 1.5,
+        pointRadius: 3,
+        pointBackgroundColor: BLUE,
+        pointBorderColor: '#24273a',
+        pointBorderWidth: 2,
+        tension: 0.4,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} pts cumulative` } }
+      },
+      scales: {
+        x: { grid: { color: '#31324466' }, ticks: { maxRotation: 0 } },
+        y: {
+          grid: { color: '#31324466' },
+          beginAtZero: true,
+          ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v }
+        }
+      }
+    }
+  });
+}
+
+function renderTeam(team) {
+  const el     = document.getElementById('team-content');
+  const header = document.getElementById('team-name-header');
+  if (!team || !team.name) {
+    el.innerHTML = '<div class="error-note">Team data unavailable.</div>';
+    return;
+  }
+  if (header) header.textContent = team.name;
+
+  const members = Array.isArray(team.members) ? team.members : [];
+  const paths   = Array.isArray(team.attack_paths) ? team.attack_paths : [];
+  const rankSeries = team.graph?.rank || [];
+
+  let h = '';
+
+  // Top stats
+  h += `<div class="team-stat-grid cols-4" style="margin-bottom:14px">
+    <div><div class="mini-stat-label">Global Rank</div>
+         <div class="mini-stat-value" style="color:${YELLOW}">#${team.ranking || '—'}</div></div>
+    <div><div class="mini-stat-label">Points</div>
+         <div class="mini-stat-value" style="color:${GREEN}">${fmt(team.points)}</div></div>
+    <div><div class="mini-stat-label">Members</div>
+         <div class="mini-stat-value" style="color:${BLUE}">${team.member_count || members.length || '—'}</div></div>
+    <div><div class="mini-stat-label">Machines</div>
+         <div class="mini-stat-value" style="color:${GREEN}">${fmt(team.team_machine_owns?.solved || 0)}</div></div>
+  </div>`;
+
+  if (team.root_owns || team.user_owns || team.challenge_owns) {
+    h += `<div class="team-stat-grid cols-3" style="padding-top:12px;border-top:1px solid var(--border);margin-bottom:14px">
+      <div><div class="mini-stat-label">Root Owns</div>
+           <div class="mini-stat-value" style="color:${GREEN};font-size:16px">${fmt(team.root_owns)}</div></div>
+      <div><div class="mini-stat-label">User Owns</div>
+           <div class="mini-stat-value" style="color:${BLUE};font-size:16px">${fmt(team.user_owns)}</div></div>
+      <div><div class="mini-stat-label">Challenges</div>
+           <div class="mini-stat-value" style="color:${ORANGE};font-size:16px">${fmt(team.challenge_owns)}</div></div>
+    </div>`;
+  }
+
+  // Rank sparkline
+  if (rankSeries.length > 1) {
+    h += `<div style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:14px">
+      <div class="section-label">Rank Trend (30 days)</div>
+      <div style="height:50px"><canvas id="team-rank-spark"></canvas></div>
+    </div>`;
+  }
+
+  // Attack paths
+  if (paths.length > 0) {
+    const maxSolved = Math.max(...paths.map(p => p.solved), 1);
+    h += `<div style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:14px">
+      <div class="section-label">Attack Paths</div>`;
+    for (const p of paths.slice(0, 6)) {
+      const pct = Math.round((p.solved / maxSolved) * 100);
+      h += `<div class="path-row">
+        <div class="path-name">${p.name}</div>
+        <div class="path-bar-bg"><div class="path-bar-fill" style="width:${pct}%"></div></div>
+        <div class="path-count">${p.solved}</div>
+      </div>`;
+    }
+    h += '</div>';
+  }
+
+  // Members
+  if (members.length > 0) {
+    h += `<div style="border-top:1px solid var(--border);padding-top:12px">
+      <div class="section-label">Members</div>`;
+    for (const m of members.slice(0, 10)) {
+      h += `<div class="member-row">
+        <div class="member-name">${m.name}</div>
+        <div class="member-rank">${m.rank_text || m.rank || ''}</div>
+        <div class="member-owns">${m.root_owns}r / ${m.user_owns}u</div>
+        <div class="member-pts">${fmt(m.points)}p</div>
+      </div>`;
+    }
+    h += '</div>';
+  }
+
+  el.innerHTML = h;
+
+  if (rankSeries.length > 1) {
+    setTimeout(() => {
+      const c = document.getElementById('team-rank-spark');
+      if (!c) return;
+      new Chart(c, {
+        type: 'line',
+        data: {
+          labels: rankSeries.map(() => ''),
+          datasets: [{
+            data: rankSeries,
+            borderColor: YELLOW,
+            backgroundColor: 'rgba(249,226,175,0.05)',
+            borderWidth: 1.5,
+            pointRadius: 2,
+            pointBackgroundColor: YELLOW,
+            tension: 0.3,
+            fill: true,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ` Rank #${ctx.parsed.y}` } }
+          },
+          scales: { x: { display: false }, y: { display: false, reverse: true } }
+        }
+      });
+    }, 50);
+  }
+}
+
+function renderActivity(activity) {
+  const el = document.getElementById('activity-list');
+  if (!Array.isArray(activity) || activity.length === 0) {
+    el.innerHTML = '<li><div class="error-note">No activity data.</div></li>';
+    return;
+  }
+
+  const typeMap = {
+    user:      { cls: 'type-user',  label: 'USER' },
+    root:      { cls: 'type-root',  label: 'ROOT' },
+    challenge: { cls: 'type-chall', label: 'CHALL' },
+    blood:     { cls: 'type-blood', label: 'BLOOD' },
+  };
+
+  let h = '';
+  for (const item of activity.slice(0, 14)) {
+    const t   = item.type || 'user';
+    const map = typeMap[t] || { cls: 'type-user', label: t.toUpperCase().slice(0,5) };
+    const name = item.name || item.object_type || 'Unknown';
+    const date = item.date
+      ? new Date(item.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })
+      : '';
+    const pts = item.points ? `+${item.points}` : '';
+    h += `<li class="activity-item">
+      <span class="activity-type ${map.cls}">${map.label}</span>
+      <div>
+        <div class="activity-name">${name}</div>
+        <div class="activity-meta">${[date, pts].filter(Boolean).join(' · ')}</div>
+      </div>
+    </li>`;
+  }
+  el.innerHTML = h;
+}
+
+async function loadDashboard() {
+  try {
+    const res  = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    renderStats(data);
+    renderXPTimeline(data);
+    renderTeam(data.team);
+    renderActivity(data.activity);
+  } catch (err) {
+    document.getElementById('sync-time').textContent = 'fetch failed';
+    console.error('HTB dashboard error:', err);
+  }
+}
+
+loadDashboard();
+</script>
+</body>
+</html>
