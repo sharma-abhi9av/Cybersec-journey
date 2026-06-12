@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-12T02:53:50Z",
+  "generated_at": "2026-06-12T10:00:59Z",
   "experience": {
     "rank": "Professional",
     "level": 53,
@@ -149,7 +149,7 @@
     },
     {
       "date": "2026-06-06T07:56:09.000000Z",
-      "date_diff": "5 days ago",
+      "date_diff": "6 days ago",
       "object_type": "challenge",
       "type": "challenge",
       "first_blood": false,
@@ -393,7 +393,7 @@
       {
         "name": "SOOBIKv2",
         "rank": "Elite Hacker",
-        "points": 1043,
+        "points": 1050,
         "root_owns": 37,
         "user_owns": 37,
         "country": "FR",
