@@ -1,18 +1,20 @@
 # About
 
 I'm Abhinav, a student currently going deep on offensive security, programming and 
-cloud infrastructure — not because it's a trend, but because breaking 
+cloud infrastructure, not because it's a trend, but because breaking 
 and understanding systems is genuinely interesting to me.
 
-This site isn't a resume. It's a working notebook writeups I made 
-sense of, scripts I actually used, problems I solved (and sometimes 
-failed at first). If something's here it's because I worked through it.
+This site isn't a resume for now :). It's a working notebook writeups I made 
+sense of, scripts I actually used, problems I solved (and failed). 
+If something's here it's because I worked through it.
 
 Right now I'm focused on:
 - Understanding web vulnerabilities at the logic level, not just 
   running tools at them
 - Building AWS automation that solves real problems
 - Getting better at Python by actually writing things, not tutorials
+- Learning and exploiting Active Directory.
+- Learning C to get a better understanding of system at lower level.
 
 I'm early in this journey and I know it. The goal is depth over breadth.
 
