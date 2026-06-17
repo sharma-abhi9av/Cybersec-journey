@@ -12,6 +12,7 @@
     <li><a href="https://app.notion.com/p/DevHub-HTB-season-11-linux-medium-37101816f52880adaf2cdab984f52f49">DevHub</a></li>
     <li><a href="https://app.notion.com/p/Reactor-HTB-season-11-linux-easy-36a01816f5288070821bd9bb8a8ae235">Reactor</a></li>
     <li><a href="https://app.notion.com/p/Connected-HTB-season-11-easy-linux-37801816f52880959a6bfd993eae90af">Connected</a></li>
+    <li><a href="https://app.notion.com/p/Checkpoint-HTB-season-11-windows-medium-38001816f52880e59f1dca55dde7dda4">Checkpoint</a></li>
   </ul>
 </details>
 <details>
