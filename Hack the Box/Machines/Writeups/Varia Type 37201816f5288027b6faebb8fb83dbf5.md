@@ -1,6 +1,5 @@
 # Varia Type
 
-[Varia Type (1)](Varia%20Type/Varia%20Type%20(1)%2037201816f5288084b261fe85309529c3.md)
 
 ## Nmap
 

